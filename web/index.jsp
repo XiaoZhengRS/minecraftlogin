@@ -65,15 +65,18 @@
     <div id="home-title1">Minecraft - Login</div>
 </div>
 <br>
-<div>
+<div class="login-main">
     <form action="login/login_ac.jsp" method="post">
-        <div>用户名:</div>
+        <div class="login-main-text">用户名:</div>
         <input type="text" name="UserName"/><br>
-        <div>用户密码:</div>
-        <input type="password" name="UserPWD"/>
-        <input type="submit" value="登录"/>
+        <div class="login-main-text">用户密码:</div>
+        <input type="password" name="UserPWD"/><br>
+        <input type="submit" value="登录" class="login-main-submit-login"/>
     </form>
-
+    <br>
+    <div>没有账号?</div>
+    <br>
+    <a href="login/registered.jsp" style="color: #ff4400">前往注册</a>
 </div>
 
 </body>

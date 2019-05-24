@@ -38,3 +38,30 @@
     margin-left: 1300px;
 }
 
+.login-main {
+    margin-left: 38%;
+    border: #ffafc9 8px solid;
+    width: 400px;
+    height: 320px;
+    text-align:center;
+}
+
+.login-main div{
+    color: #ffafc9;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-main-text{
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.login-main-submit-login{
+    width: 120px;
+    margin-top: 18px;
+    height: 50px;
+    color: #ff4400;
+    background-color: #ffafc9;
+}
