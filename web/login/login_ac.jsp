@@ -19,7 +19,7 @@
         String JDBC_DRIVER = "com.mysql.jdbc.Driver";
         String DB_URL = "jdbc:mysql://localhost:3306/minecraftlogin";
         String USER = "root";
-        String PASS = "510082QQ";
+        String PASS = "root";
         Connection conn = null;
         Statement stmt = null;
 
