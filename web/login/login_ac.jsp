@@ -1,8 +1,5 @@
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="com.xzkj.minecraftlogin.*" %>
-<%@ page import="java.sql.Connection" %><%--
+<%@ page import="com.xzkj.minecraftlogin.UserLogin" %>
+<%--
   Created by IntelliJ IDEA.
   User: 三星
   Date: 2019/5/24
@@ -16,9 +13,16 @@
 </head>
 <body>
     <%
-
-        login login = new login();
-
+        //设置编码
+        //request.setCharacterEncoding("utf-8");
+       // UserLogin login = new UserLogin().;
+        String name = request.getParameter("name");
+        String passWord = request.getParameter("password");
+        String gameName = request.getParameter("gamename");
+        String qq = request.getParameter("QQ");
+        String iP = request.getRemoteAddr();
+        String data = new UserLogin().registerUser(name, passWord, iP, qq, gameName);
+        out.println(data);
     %>
     系统升级中!
 </body>

@@ -1,22 +1,21 @@
 package com.xzkj.minecraftlogin;
 
-import java.sql.Connection;
-import java.sql.Statement;
+import java.sql.*;
 
 public class UserLogin {
 
     GetConfig getconfig = new GetConfig();
-
-    private String JDBC_DRIVER = getconfig.getConfig("JDBC_DRIVER", "config/sqlConfig.ini");
-    private String DB_URL = getconfig.getConfig("DB_URL", "config/sqlConfig.ini");
-    private String USER = getconfig.getConfig("SqlUserName", "config/sqlConfig.ini");
-    private String PASS = getconfig.getConfig("SqlUserPassWord", "config/sqlConfig.ini");
+    private String pathsql = "H:\\JavaWebJsp\\MinecraftLogin\\web\\config\\sqlConfig.ini";
+    private String JDBC_DRIVER = getconfig.getConfig("JDBC_DRIVER", pathsql);
+    private String DB_URL = getconfig.getConfig("DB_URL", pathsql);
+    private String USER = getconfig.getConfig("SqlUserName", pathsql);
+    private String PASS = getconfig.getConfig("SqlUserPassWord", pathsql);
     private Connection conn = null;
     private Statement stmt = null;
     private String UserName = "";
     private String UserPWD = "";
     private Connection Conn;
-    UserLogin(){
+    public UserLogin(){
         try {
             //注册JDBC驱动
             Class.forName(JDBC_DRIVER);
@@ -35,4 +34,39 @@ public class UserLogin {
         return null;
     }
 
+    public String registerUser(String Name, String PWD, String ip, String qq, String gamename){
+        String sql = "INSERT INTO userdate " +
+                "(id, username, userpassword, ip, qq, gamename) " +
+                "VALUES " +
+                "(null ," +
+                //用户名
+                " '"+ Name+ "'," +
+                //用户密码
+                " '"+ PWD +"'," +
+                //用户IP
+                " '"+ ip +"'," +
+                //用户QQ
+                " '"+ qq +"'," +
+                //游戏iD
+                " '"+ gamename +"')";
+        try {
+            //连接Mysql
+            System.out.println("开始连接数据库!");
+            Conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("数据库连接成功!");
+            PreparedStatement pstmt = Conn.prepareStatement(sql);
+            int sqlcount = pstmt.executeUpdate();
+            if (sqlcount > 0) {
+                return "用户注册成功";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+                return  "数据库连接失败!";
+        }
+        return null;
+    }
+    public static void main(String[] args) {
+        UserLogin login = new UserLogin();
+        System.out.println(login.registerUser("xzkj", "xzkj123", "0.0.0.0", "1419158026", "xzkj"));
+    }
 }
