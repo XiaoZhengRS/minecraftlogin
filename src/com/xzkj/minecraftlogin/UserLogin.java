@@ -25,6 +25,7 @@ public class UserLogin {
             System.out.println("注册驱动失败!");
         }
     }
+    //登录账号
     public String getLogin(String Name, String PWD){
 
 
@@ -33,9 +34,15 @@ public class UserLogin {
 
         return null;
     }
-
+    //注册账号
     public String registerUser(String Name, String PWD, String ip, String qq, String gamename){
-        String sql = "INSERT INTO userdate " +
+        if (!isUser(Name)){
+            return "已经存在该用户!";
+        }
+
+
+
+        String sql = "INSERT INTO userdata " +
                 "(id, username, userpassword, ip, qq, gamename) " +
                 "VALUES " +
                 "(null ," +
@@ -55,9 +62,10 @@ public class UserLogin {
             Conn = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("数据库连接成功!");
             PreparedStatement pstmt = Conn.prepareStatement(sql);
+
             int sqlcount = pstmt.executeUpdate();
             if (sqlcount > 0) {
-                return "用户注册成功";
+                return "用户注册成功!请登录";
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,8 +73,36 @@ public class UserLogin {
         }
         return null;
     }
-    public static void main(String[] args) {
-        UserLogin login = new UserLogin();
-        System.out.println(login.registerUser("xzkj", "xzkj123", "0.0.0.0", "1419158026", "xzkj"));
+    //判断用户是否存在
+    public Boolean isUser(String userName) {
+
+        ResultSet rs = null;
+        System.out.println("开始连接数据库!");
+        try {
+            Conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("数据库连接成功!");
+            //2.获取Statement
+            Statement statement = Conn.createStatement();
+            //3.准备Sql
+            String sql = "SELECT * FROM userdata WHERE username = " + "'" + userName + "'";
+            //4.执行查询，得到ResultSet
+            rs = statement.executeQuery(sql);
+            rs.last();
+            if (rs.getRow() > 0) {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return true;
     }
-}
+
+        public static void main (String[]args){
+            UserLogin login = new UserLogin();
+            System.out.println(login.registerUser("xzkj", "xzkj123", "0.0.0.0", "1419158026", "xzkj"));
+        }
+
+    }
