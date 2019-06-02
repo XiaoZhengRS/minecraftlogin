@@ -1,4 +1,5 @@
 <%@ page import="com.xzkj.minecraftlogin.*" %>
+<%@ page import="com.sun.org.apache.bcel.internal.generic.NEW" %>
 <%--
   Created by IntelliJ IDEA.
   User: 三星
@@ -17,7 +18,11 @@
 </head>
 <body>
     <%
-
+        String path = request.getSession().getServletContext().getRealPath("/");
+        //UserLogin login = new UserLogin();
+        Demo demo = new Demo();
+        out.println(path + "</br>");
+        out.println(demo.getPath());
     %>
     系统升级中请稍后重试!
 </body>

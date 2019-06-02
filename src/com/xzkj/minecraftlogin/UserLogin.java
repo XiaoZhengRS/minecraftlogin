@@ -1,11 +1,26 @@
 package com.xzkj.minecraftlogin;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.*;
 
 public class UserLogin {
 
     GetConfig getconfig = new GetConfig();
-    private String pathsql = "H:\\JavaWebJsp\\MinecraftLogin\\web\\config\\sqlConfig.ini";
+
+    //private String pathsql = "H:\\JavaWebJsp\\MinecraftLogin\\web\\config\\sqlConfig.ini";
+
+    private String pathClass = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+
+    private String pathsql;
+
+    {
+        try {
+            pathsql = java.net.URLDecoder.decode(pathClass + "com\\xzkj\\minecraftlogin\\config\\sqlConfig.ini", "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
     private String JDBC_DRIVER = getconfig.getConfig("JDBC_DRIVER", pathsql);
     private String DB_URL = getconfig.getConfig("DB_URL", pathsql);
     private String USER = getconfig.getConfig("SqlUserName", pathsql);
@@ -25,8 +40,12 @@ public class UserLogin {
             System.out.println("注册驱动失败!");
         }
     }
+
+
+
     //登录账号
     public String getLogin(String Name, String PWD){
+
 
 
 

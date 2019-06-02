@@ -78,6 +78,11 @@
     <br>
     <a href="login/registered.jsp" style="color: #ff4400">前往注册</a>
 </div>
-
+<br>
+当前目录:>
+<%
+    String path = request.getSession().getServletContext().getRealPath("/");
+    out.println(path);
+%>
 </body>
 </html>
